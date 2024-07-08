@@ -23,6 +23,29 @@ class Tree
         return node 
     end
 
+    def insert(value)
+        node = Node.new(value)
+        leaf_node = @root
+        empty_branch = false
+        until empty_branch
+            if node < leaf_node
+                if leaf_node.left.nil?
+                    leaf_node.left = node
+                    empty_branch = true
+                else
+                    leaf_node = leaf_node.left
+                end
+            else
+                if leaf_node.right.nil?
+                    leaf_node.right = node
+                    empty_branch = true
+                else
+                    leaf_node = leaf_node.right
+                end
+            end
+        end
+    end
+
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
