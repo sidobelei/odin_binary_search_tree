@@ -46,6 +46,21 @@ class Tree
         end
     end
 
+    def find(value)
+        current_node = @root
+        until current_node.data == value
+            if current_node.data < value
+                current_node = current_node.right
+            else
+                current_node = current_node.left
+            end
+            if current_node.nil?
+                break
+            end
+        end
+        return current_node
+    end
+
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
