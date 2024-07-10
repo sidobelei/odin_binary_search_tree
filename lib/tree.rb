@@ -46,6 +46,50 @@ class Tree
         end
     end
 
+    def delete(value)
+        parent_node = nil
+        current_node = @root
+        next_node = nil
+        until current_node.data == value
+            parent_node = current_node
+            if current_node.data < value
+                current_node = current_node.right
+            else
+                current_node = current_node.left
+            end
+            if current_node.nil?
+                return
+            end
+        end
+        if !current_node.left.nil? && !current_node.right.nil?
+            next_node = current_node.right
+            parent_node = current_node.right
+            until next_node.left.nil?
+                parent_node = next_node
+                next_node = next_node.left
+            end
+            current_node.data = next_node.data
+            unless parent_node.left.nil?
+                parent_node.left = nil
+            else
+                current_node.right = parent_node.right
+            end
+        else    
+            if current_node.left.nil?
+                next_node = current_node.right
+            elsif current_node.right.nil?
+                next_node = current_node.left
+            end
+            if parent_node.nil?
+                @root = next_node
+            elsif parent_node.left == current_node
+                parent_node.left = next_node
+            else
+                parent_node.right = next_node
+            end
+        end
+    end
+
     def find(value)
         current_node = @root
         until current_node.data == value
