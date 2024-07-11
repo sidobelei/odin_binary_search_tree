@@ -123,6 +123,21 @@ class Tree
         return array
     end
 
+    def inorder(current_node = @root, array = [], &block)
+        if current_node.nil?
+            return array
+        end
+        if !current_node.left.nil?
+            array = inorder(current_node.left, array, &block)
+        end
+        array.push(current_node.data)
+        yield current_node if block_given?
+        if !current_node.right.nil?
+            array = inorder(current_node.right, array, &block)
+        end
+        return array
+    end
+
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
