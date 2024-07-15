@@ -187,6 +187,24 @@ class Tree
         return height
     end
 
+    def depth(node = @root)
+        return if find(node.data).nil?
+        current_node = @root
+        node_depth = 0 
+        until current_node.data == node
+            if current_node.data < node
+                current_node = current_node.right
+            else
+                current_node = current_node.left
+            end
+            node_depth += 1
+            if current_node.nil?
+                break
+            end
+        end
+        return node_depth
+    end
+    
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
