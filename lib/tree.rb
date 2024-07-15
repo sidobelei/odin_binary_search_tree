@@ -165,6 +165,28 @@ class Tree
         return array
     end
 
+    def height(node = @root)
+        return if find(node.data).nil?
+        height = 0
+        parent_queue = [node]
+        child_queue = []
+        until parent_queue.empty? && child_queue.empty?
+            if !parent_queue[0].left.nil?
+                child_queue.push(parent_queue[0].left)
+            end
+            if !parent_queue[0].right.nil?
+                child_queue.push(parent_queue[0].right)
+            end
+            parent_queue.shift
+            if !child_queue.empty? && parent_queue.empty?
+                parent_queue = child_queue
+                child_queue = []
+                height += 1
+            end
+        end
+        return height
+    end
+
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
