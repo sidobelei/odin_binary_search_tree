@@ -228,6 +228,11 @@ class Tree
         end
         return balanced
     end
+
+    def rebalance
+        array = inorder
+        @root = build_tree(array.uniq.sort())
+    end
     
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
