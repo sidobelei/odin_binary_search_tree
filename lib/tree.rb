@@ -204,6 +204,30 @@ class Tree
         end
         return node_depth
     end
+
+    def balanced?
+        queue = [@root]
+        balanced = true
+        until queue.empty?
+            left_tree_height = -1
+            right_tree_height = -1
+            if !queue[0].left.nil?
+                queue.push(queue[0].left)
+                left_tree_height = height(queue[0].left)
+            end
+            if !queue[0].right.nil?
+                queue.push(queue[0].right)
+                right_tree_height = height(queue[0].right)
+            end
+            difference = (left_tree_height - right_tree_height).abs
+            if difference > 1
+                balanced = false
+                break
+            end
+            queue.shift
+        end
+        return balanced
+    end
     
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
