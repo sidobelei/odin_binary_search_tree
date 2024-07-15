@@ -21,6 +21,7 @@ class Tree
     end
 
     def insert(value)
+        return if !find(value).nil?
         node = Node.new(value)
         leaf_node = @root
         empty_branch = false
@@ -233,7 +234,7 @@ class Tree
         array = inorder
         @root = build_tree(array.uniq.sort())
     end
-    
+
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
         pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
