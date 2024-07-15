@@ -148,7 +148,22 @@ class Tree
             array = preorder(current_node.right, array, &block)
         end
         return array 
-    end    
+    end
+    
+    def postorder (current_node = @root, array = [], &block)
+        if current_node.nil?
+            return array
+        end
+        if !current_node.left.nil?
+          array = postorder(current_node.left, array, &block)
+        end
+        if !current_node.right.nil?
+          array = postorder(current_node.right, array, &block)
+        end
+        array.push(current_node.data)
+        yield current_node if block_given?
+        return array
+    end
 
     # This method was written by another student
     def pretty_print(node = @root, prefix = '', is_left = true)
